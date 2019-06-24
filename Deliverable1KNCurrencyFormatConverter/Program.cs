@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Deliverable1KNCurrencyFormatConverter
 {
@@ -6,7 +7,10 @@ namespace Deliverable1KNCurrencyFormatConverter
     {
         public static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             double amount1, amount2, amount3;
+            //declare variables
+
             Console.Write("Enter the First dollar amount: ");
             amount1 = Convert.ToDouble(Console.ReadLine());
 
@@ -15,27 +19,37 @@ namespace Deliverable1KNCurrencyFormatConverter
 
             Console.Write("Enter the Third dollar amount: ");
             amount3 = Convert.ToDouble(Console.ReadLine());
+            //accept amount inputs
 
             double result = (amount1 + amount2 + amount3) / 3;
-            Console.WriteLine("The Average of {0}, {1}, {2} is: {3} ",
-         amount1, amount2, amount3, result);
+            Console.WriteLine("The Average is: ${0} ",
+         result);
+            //output average of three user inputs
 
-            double total = amount1 + amount2 + amount3;
+            Console.WriteLine("The Smallest amount: $" + Math.Min(amount1, Math.Min(amount2, amount3)));
+            Console.WriteLine("The Largest amount: $" + Math.Max(amount1, Math.Max(amount2, amount3)));
+            //output max and min
+
+		double total = amount1 + amount2 + amount3;
 
 
+			Console.WriteLine("US: {0:C2} ", total);
 
-            Console.WriteLine("The Smallest amount:" + Math.Min(amount1, Math.Min(amount2, amount3)));
-            Console.WriteLine("The Largest amount:" + Math.Max(amount1, Math.Max(amount2, amount3)));
 
-            //Console.WriteLine(total.ToString("#,#", CultureInfo.InvariantCulture)); 
-            /*Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
-                                            "{0:#,#}", value));
-            Console.WriteLine(total.ToString("C", CultureInfo.CurrentCulture)); // us
+            CultureInfo sv = new CultureInfo("sv-SE");
+			Console.Out.WriteLine("Swedish: {0:C2}", total.ToString("C", sv));
 
-            Console.WriteLine(total.ToString("C3", CultureInfo.CreateSpecificCulture("da-DK")));// Swedish
-            */
-        }
-    }
+			CultureInfo jp = new CultureInfo("ja-JP");
+			Console.Out.WriteLine("Japanese: {0} ", total.ToString("C", jp));
+
+			CultureInfo th = new CultureInfo("th-TH");
+			Console.Out.WriteLine("Thai: {0:C2}", total.ToString("c", th));
+            //output currencies using (C)
+
+			Console.ReadKey();
+			
+		}
+	}
 }
 
 /* Task: Create a console app in C# that takes in 3 different dollar amounts. Total up
@@ -51,10 +65,6 @@ So 1923.53 would turn into the following:
 ● Swedish: 1 923,53 kr
 ● Japanese: ￥1,924
 ● Thai: ฿1,923.53
-
-decimal dec = 123.00M;
-string uk = dec.ToString("C", new CultureInfo("en-GB")); // uk holds "£123.00"
-string us = dec.ToString("C", new CultureInfo("en-US")); // us holds "$123.00
 
 Build Specifications:
 1. Take in 3 numbers using console.readline()
